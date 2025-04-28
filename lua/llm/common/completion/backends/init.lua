@@ -19,6 +19,11 @@ local function init(opts)
       state.completion.backend = codeium
       LOG:TRACE("llm.nvim completion provider:", opts.api_type)
       return codeium
+    elseif opts.api_type == "vllm" then
+      local vllm = require("llm.common.completion.backends.vllm")
+      state.completion.backend = vllm
+      LOG:TRACE(string.format("llm.nvim completion provider: %s", opts.api_type))
+      return vllm
     end
   else
     return state.completion.backend

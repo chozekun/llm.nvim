@@ -176,6 +176,9 @@ function api.UpdateCursorPosition(bufnr, winid)
 end
 
 function api.AppendChunkToBuffer(bufnr, winid, chunk, detach)
+  if not vim.api.nvim_buf_is_valid(bufnr) then
+    return
+  end
   local line_count = vim.api.nvim_buf_line_count(bufnr)
   local last_line = vim.api.nvim_buf_get_lines(bufnr, line_count - 1, line_count, false)[1]
 
